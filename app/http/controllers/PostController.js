@@ -7,7 +7,10 @@ class PostController {
     // index of all posts
     async index(req, res) {
         try {
-            const posts = await Post.find();
+            //             const posts = await Post.find();
+            const cursor = Post.find().cursor();
+            const posts = [];
+            await cursor.eachAsync(post => posts.push(post));
             return apiResponse(res, 200, 'Success', null, posts);
         } catch (err) {
             return apiResponse(res, 500, 'Error', err.message, null);
@@ -41,7 +44,7 @@ class PostController {
     // update a post
     async update(req, res) {
         try {
-            const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true});
+            const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true , runValidators: true});
             if (!post) {
                 return apiResponse(res, 404, 'Not Found', 'Post not found', null);
             }
