@@ -38,6 +38,32 @@ class PostController {
         }
     }
 
+    // update a post
+    async update(req, res) {
+        try {
+            const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true});
+            if (!post) {
+                return apiResponse(res, 404, 'Not Found', 'Post not found', null);
+            }
+            return apiResponse(res, 200, 'Success', null, post);
+        } catch (err) {
+            return apiResponse(res, 500, 'Error', err.message, null);
+        }
+    }
+
+    // delete a post
+    async delete(req, res) {
+        try {
+            const post = await Post.findByIdAndDelete(req.params.id);
+            if (!post) {
+                return apiResponse(res, 404, 'Not Found', 'Post not found', null);
+            }
+            return apiResponse(res, 204, 'Success', null, null);
+        } catch (err) {
+            return apiResponse(res, 500, 'Error', err.message, null);
+        }
+    }
+
 }
 
 module.exports = new PostController();

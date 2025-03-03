@@ -10,6 +10,10 @@ router.get('/', postController.index);
 router.get('/:id', postController.show);
 // store a new post
 router.post('/', postController.store);
+// update a post
+router.put('/:id', postController.update);
+// delete a post
+router.delete('/:id', postController.delete);
 
 
 module.exports = router;
