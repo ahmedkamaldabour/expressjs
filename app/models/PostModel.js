@@ -13,7 +13,11 @@ const PostSchema = new mongoose.Schema({
         type: String,
         enum: ['draft', 'published', 'archived'],
         default: 'draft'
-    }
+    },
+    CreatedAt: {
+        type: Date,
+        default: Date.now()
+    },
 });
 
 module.exports = mongoose.model('Post', PostSchema);
