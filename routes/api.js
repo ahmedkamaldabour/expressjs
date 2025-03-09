@@ -16,9 +16,5 @@ router.get('/', function (req, res) {
 // Post model routes
 router.use('/posts', require('./post'));
 
-router.use(function (req, res, next) {
-    return apiResponse(res, 404, 'Route not found');
-});
-
 
 module.exports = router;
