@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api')
-const apiResponse = require("./app/helpers/apiResponse");
+const apiResponse = require("./app/Helpers/apiResponse");
 
 var app = express();
 

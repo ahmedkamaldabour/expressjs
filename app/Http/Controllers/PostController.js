@@ -1,6 +1,6 @@
-const Post = require('../../models/PostModel');
+const Post = require('../../Models/PostModel');
 const BaseController = require('./BaseController');
-const APIFeatures = require("../../helpers/apiFeatures");
+const APIFeatures = require("../../Helpers/apiFeatures");
 
 class PostController extends BaseController {
 

@@ -1,6 +1,6 @@
 var express = require('express');
 var morgan = require('morgan')
-var apiResponse = require('../app/helpers/apiResponse');
+var apiResponse = require('../app/Helpers/apiResponse');
 var router = express.Router();
 
 // morgan middleware to log requests

@@ -1,4 +1,4 @@
-const apiResponse = require('../../helpers/apiResponse');
+const apiResponse = require('../../Helpers/apiResponse');
 
 class BaseController {
     constructor() {
