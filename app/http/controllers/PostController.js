@@ -1,19 +1,33 @@
 const Post = require('../../models/PostModel');
-const apiResponse = require('../../helpers/apiResponse');
+const BaseController = require('./BaseController');
+const APIFeatures = require("../../helpers/apiFeatures");
 
+class PostController extends BaseController {
 
-class PostController {
+    // constructor method
+    constructor() {
+        super()
+        // Bind methods to the instance
+        this.index = this.index.bind(this);
+        this.show = this.show.bind(this);
+        this.store = this.store.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
+    }
 
     // index of all posts
     async index(req, res) {
         try {
-            //             const posts = await Post.find();
-            const cursor = Post.find().cursor();
-            const posts = [];
-            await cursor.eachAsync(post => posts.push(post));
-            return apiResponse(res, 200, 'Success', null, posts);
+            const features = new APIFeatures(Post.find(), req.query)
+                .filter()
+                .sort()
+                .limitFields()
+                .paginate();
+            const posts = await features.query;
+
+            return this.apiResponse(res, 200, 'Success', null, posts);
         } catch (err) {
-            return apiResponse(res, 500, 'Error', err.message, null);
+            return this.apiResponse(res, 500, 'Error', err.message, null);
         }
     }
 
@@ -23,11 +37,11 @@ class PostController {
             const post = await Post.findById(req.params.id);
             console.log(post);
             if (!post) {
-                return apiResponse(res, 404, 'Not Found', 'Post not found', null);
+                return this.apiResponse(res, 404, 'Not Found', 'Post not found', null);
             }
-            return apiResponse(res, 200, 'Success', null, post);
+            return this.apiResponse(res, 200, 'Success', null, post);
         } catch (err) {
-            return apiResponse(res, 500, 'Error', err.message, null);
+            return this.apiResponse(res, 500, 'Error', err.message, null);
         }
     }
 
@@ -35,22 +49,22 @@ class PostController {
     async store(req, res) {
         try {
             const post = await Post.create(req.body);
-            return apiResponse(res, 201, 'Success', null, post);
+            return this.apiResponse(res, 201, 'Success', null, post);
         } catch (err) {
-            return apiResponse(res, 500, 'Error', err.message, null);
+            return this.apiResponse(res, 500, 'Error', err.message, null);
         }
     }
 
     // update a post
     async update(req, res) {
         try {
-            const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true , runValidators: true});
+            const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
             if (!post) {
-                return apiResponse(res, 404, 'Not Found', 'Post not found', null);
+                return this.apiResponse(res, 404, 'Not Found', 'Post not found', null);
             }
-            return apiResponse(res, 200, 'Success', null, post);
+            return this.apiResponse(res, 200, 'Success', null, post);
         } catch (err) {
-            return apiResponse(res, 500, 'Error', err.message, null);
+            return this.apiResponse(res, 500, 'Error', err.message, null);
         }
     }
 
@@ -59,11 +73,11 @@ class PostController {
         try {
             const post = await Post.findByIdAndDelete(req.params.id);
             if (!post) {
-                return apiResponse(res, 404, 'Not Found', 'Post not found', null);
+                return this.apiResponse(res, 404, 'Not Found', 'Post not found', null);
             }
-            return apiResponse(res, 204, 'Success', null, null);
+            return this.apiResponse(res, 204, 'Success', null, null);
         } catch (err) {
-            return apiResponse(res, 500, 'Error', err.message, null);
+            return this.apiResponse(res, 500, 'Error', err.message, null);
         }
     }
 
