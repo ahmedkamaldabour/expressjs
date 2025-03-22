@@ -15,6 +15,8 @@ router.get('/', function (req, res) {
 
 // Post model routes
 router.use('/posts', require('./post'));
+// User model routes
+router.use('/', require('./users'));
 
 
 module.exports = router;

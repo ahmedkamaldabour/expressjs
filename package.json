@@ -7,17 +7,21 @@
     "debug": "ndb bin/www.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "http-errors": "~1.6.3",
     "jade": "^0.31.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.14.0",
     "mongoose": "^8.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.96",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",

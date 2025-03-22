@@ -4,6 +4,14 @@
  * Module dependencies.
  */
 
+
+// Handle uncaught exceptions
+process.on('uncaughtException', err => {
+    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+});
+
 var app = require('../app');
 var debug = require('debug')('expressjs:server');
 var http = require('http');
@@ -91,7 +99,7 @@ function onListening() {
 }
 
 
-// unhandledRejection
+// unhandledRejection for not handled promise rejections
 process.on('unhandledRejection', err => {
     console.log('UNHANDLED REJECTION! 💥 Shutting down...');
     console.log(err.name, err.message);
